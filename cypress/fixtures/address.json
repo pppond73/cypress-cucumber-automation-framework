@@ -1,0 +1,14 @@
+{
+  "validAddress": {
+    "phone": "0990099978",
+    "street": "Vibhavadi Rangsit Road",
+    "city": "Bangkok",
+    "country": "Thailand"
+  },
+  "invalidAddress": {
+    "phone": "0990099978",
+    "street": "Vibhavadi Rangsit Road",
+    "city": "",
+    "country": "Thailand"
+  }
+}

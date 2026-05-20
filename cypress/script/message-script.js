@@ -1,0 +1,1 @@
+export const LOGIN_ERROR = "Bad credentials! Please try again! Make sure that you've registered"

@@ -1,0 +1,34 @@
+{
+  "validUser": {
+    "email": "admin@admin.com",
+    "password": "admin123"
+  },
+  "invalidUser": {
+    "email": "test.com",
+    "password": "123456"
+  },
+  "invalidPassword": {
+    "email": "admin@admin.com",
+    "password": "!@#$%^&*()"
+  },
+  "unregistered": {
+    "email": "test@gmail.com",
+    "password": "admin123"
+  },
+  "mismatched": {
+    "email": "admin@admin.com",
+    "password": "123456"
+  },
+  "emptyEmail": {
+    "email": "",
+    "password": "admin123"
+  },
+  "emptyPassword": {
+    "email": "admin@admin.com",
+    "password": ""
+  },
+  "spacesOnly": {
+    "email": "   ",
+    "password": "   "
+  }
+}

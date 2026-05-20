@@ -1,0 +1,10 @@
+| Priority | Locator               |
+| -------- | --------------------- |
+| 1        | data-cy / data-testid |
+| 2        | id                    |
+| 3        | name                  |
+| 4        | role/aria             |
+| 5        | contains text         |
+| 6        | class                 |
+| 7        | xpath                 |
+| 8        | nth-child             |
