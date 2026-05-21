@@ -90,21 +90,21 @@ When('user login with email without at', function () {
 When('user login with leading trailing spaces', function () {
 
     flow.login(this.users.leadingTrailing);
-    
+
 
 });
 
 When('user login with only spaces input', function () {
 
     flow.login(this.users.spacesOnly);
-    
+
 
 });
 
 When('user login with password with special characters', function () {
 
     flow.login(this.users.passwordSpecialChars);
-    
+
 
 });
 
@@ -158,6 +158,12 @@ Then('password textbox should be visible', () => {
 Then('password input should be masked', () => {
 
     pageAction.verifyPasswordMasked();
+
+});
+
+Then('login button should be visible and clickable', () => {
+
+    pageAction.verifyLoginButton();
 
 });
 

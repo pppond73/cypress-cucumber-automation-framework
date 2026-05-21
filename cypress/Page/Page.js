@@ -43,6 +43,12 @@ class PageAction {
 
     }
 
+    static verifyLoginButton() {
+
+        loginScript.verifyLoginButton();
+
+    }
+
     static login(credentials, useEnter = false) {
 
         loginScript.inputField(

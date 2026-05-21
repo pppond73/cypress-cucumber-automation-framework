@@ -111,3 +111,11 @@ export const verifyPasswordMasked = () => {
     .should('have.attr', 'type', 'password');
 
 };
+
+export const verifyLoginButton = () => {
+
+  cy.get(selectors.submitBtn)
+    .should('be.visible')
+    .and('not.be.disabled');
+
+};

@@ -112,3 +112,8 @@ Scenario: Verify password masking
 Given user is on login page
 When user enters password
 Then password input should be masked
+
+@login @ui
+Scenario: Verify login button
+Given user is on login page
+Then login button should be visible and clickable
