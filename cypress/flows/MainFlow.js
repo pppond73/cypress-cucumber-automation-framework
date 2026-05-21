@@ -10,11 +10,7 @@ import * as shippingScript from "../script/shipping-details-script";
 
 export const login = (credentials, useEnter = false) => {
 
-    pageAction.login(
-        credentials.email,
-        credentials.password,
-        useEnter
-    );
+    pageAction.login(credentials, useEnter);
 
 };
 

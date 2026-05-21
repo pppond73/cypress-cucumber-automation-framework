@@ -1,60 +1,80 @@
 // cypress/script/login-script.js
 
-// 🔹 Input Email
-export const inputEmail = (email) => {
+// ========================
+// 🔹 SELECTORS
+// ========================
 
-  cy.get('#email')
+export const selectors = {
+
+  emailField: '#email',
+  passwordField: '#password',
+  submitBtn: '#submitLoginBtn',
+  errorMessage: '#message'
+
+};
+
+// ========================
+// 🔹 GENERIC INPUT
+// ========================
+
+export const inputField = (locator, value) => {
+
+  cy.get(locator)
     .should('be.visible')
     .clear();
 
-  if (email !== '') {
+  // allow empty validation case
+  if (value) {
 
-    cy.get('#email').type(email);
+    cy.get(locator).type(value);
 
   }
 
 };
 
-// 🔹 Input Password
-export const inputPassword = (password) => {
+// ========================
+// 🔹 CLICK BUTTON
+// ========================
 
-  cy.get('#password')
-    .should('be.visible')
-    .clear();
+export const clickButton = (locator) => {
 
-  if (password !== '') {
-
-    cy.get('#password').type(password);
-
-  }
-
-};
-
-// 🔹 Click Login
-export const clickLogin = () => {
-  cy.get('#submitLoginBtn')
+  cy.get(locator)
     .should('be.visible')
     .click();
+
 };
 
-// 🔹 Submit Login With Enter Key
-export const submitLoginWithEnter = () => {
+// ========================
+// 🔹 SUBMIT WITH ENTER
+// ========================
 
-  cy.get('#password')
+export const submitWithEnter = (locator) => {
+
+  cy.get(locator)
     .should('be.visible')
     .type('{enter}');
 
 };
 
-// 🔹 Verify Error Message (Negative Case)
+// ========================
+// 🔹 VERIFY ERROR MESSAGE
+// ========================
+
 export const verifyErrorMessage = (expectedText) => {
-  cy.get('#message')
+
+  cy.get(selectors.errorMessage)
     .should('be.visible')
     .and('contain.text', expectedText);
+
 };
 
-// 🔹 Verify No Error (Positive Case)
+// ========================
+// 🔹 VERIFY NO ERROR
+// ========================
+
 export const verifyNoErrorMessage = () => {
-  cy.get('#message')
+
+  cy.get(selectors.errorMessage)
     .should('not.be.visible');
+
 };

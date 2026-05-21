@@ -10,19 +10,29 @@ class PageAction {
     // 🔹 LOGIN
     // ========================
 
-    static login(username, password, useEnter = false) {
+    static login(credentials, useEnter = false) {
 
-        loginScript.inputEmail(username);
+        loginScript.inputField(
+            loginScript.selectors.emailField,
+            credentials.email
+        );
 
-        loginScript.inputPassword(password);
+        loginScript.inputField(
+            loginScript.selectors.passwordField,
+            credentials.password
+        );
 
         if (useEnter) {
 
-            loginScript.submitLoginWithEnter();
+            loginScript.submitWithEnter(
+                loginScript.selectors.passwordField
+            );
 
         } else {
 
-            loginScript.clickLogin();
+            loginScript.clickButton(
+                loginScript.selectors.submitBtn
+            );
 
         }
 

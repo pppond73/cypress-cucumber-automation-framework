@@ -49,3 +49,9 @@ Scenario: Empty email
 Given user is on login page
 When user login with empty email
 Then error message should be displayed
+
+@emptypassword
+Scenario: Empty password
+Given user is on login page
+When user login with empty passowrd
+Then error message should be displayed

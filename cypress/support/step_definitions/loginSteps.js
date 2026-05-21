@@ -63,6 +63,12 @@ When('user login with empty email', function () {
 
 });
 
+When('user login with empty passowrd', function () {
+
+    flow.login(this.users.emptyPassword);
+
+});
+
 When('user press Enter after entering valid credentials', function () {
 
     flow.login(this.users.validUser, true);
