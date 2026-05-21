@@ -55,3 +55,50 @@ Scenario: Empty password
 Given user is on login page
 When user login with empty passowrd
 Then error message should be displayed
+
+@emptyboth
+Scenario: Empty both fields
+Given user is on login page
+When user login with empty both fields
+Then error message should be displayed
+
+@invalidformat
+Scenario: Invalid email format
+Given user is on login page
+When user login with invalid email format
+Then error message should be displayed
+
+@withoutat
+Scenario: Email without @
+Given user is on login page
+When user login with email without at
+Then error message should be displayed
+
+@leadingtrailing
+Scenario: Leading/trailing spaces
+Given user is on login page
+When user login with leading trailing spaces
+Then user should see shopping cart page
+
+@onlyspaces
+Scenario: Only spaces input
+Given user is on login page
+When user login with only spaces input
+Then error message should be displayed
+
+@specialchars
+Scenario: Password with special characters
+Given user is on login page
+When user login with password with special characters
+Then error message should be displayed
+
+
+@login @ui
+Scenario: Verify company logo
+Given user is on login page
+Then company logo should be visible
+
+@login @ui
+Scenario: Verify company logo
+Given user is on login page
+Then email textbox should be visible

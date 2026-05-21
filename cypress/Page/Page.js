@@ -10,6 +10,18 @@ class PageAction {
     // 🔹 LOGIN
     // ========================
 
+    static verifyCompanyHeader() {
+
+        loginScript.verifyCompanyHeader();
+
+    }
+
+    static verifyEmailTextbox() {
+
+        loginScript.verifyEmailTextbox();
+
+    }
+
     static login(credentials, useEnter = false) {
 
         loginScript.inputField(

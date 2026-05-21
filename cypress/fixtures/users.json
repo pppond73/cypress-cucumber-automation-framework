@@ -4,7 +4,7 @@
     "password": "admin123"
   },
   "invalidUser": {
-    "email": "test.com",
+    "email": "unknown@gmail.com",
     "password": "123456"
   },
   "invalidPassword": {
@@ -27,8 +27,28 @@
     "email": "admin@admin.com",
     "password": ""
   },
+  "emptyBothFields": {
+    "email": "",
+    "password": ""
+  },
+  "invalidFormat": {
+    "email": "@test.com",
+    "password": "admin123"
+  },
+  "withoutAt": {
+    "email": "test.com",
+    "password": "admin123"
+  },
+  "leadingTrailing": {
+    "email": "  admin@admin.com  ",
+    "password": "admin123"
+  },
   "spacesOnly": {
     "email": "   ",
     "password": "   "
+  },
+  "passwordSpecialChars": {
+    "email": "admin@admin.com",
+    "password": "Admin@123!"
   }
 }

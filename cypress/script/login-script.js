@@ -23,9 +23,10 @@ export const inputField = (locator, value) => {
     .should('be.visible')
     .clear();
 
+
   // allow empty validation case
   if (value) {
-
+    cy.log(JSON.stringify(value));
     cy.get(locator).type(value);
 
   }
@@ -76,5 +77,23 @@ export const verifyNoErrorMessage = () => {
 
   cy.get(selectors.errorMessage)
     .should('not.be.visible');
+
+};
+
+// ========================
+// 🔹 VERIFY UI
+// ========================
+
+export const verifyCompanyHeader = () => {
+
+  cy.contains('h2', 'Login - Shop')
+    .should('be.exist');
+
+};
+
+export const verifyEmailTextbox = () => {
+
+  cy.get(selectors.emailField)
+    .should('be.visible');
 
 };

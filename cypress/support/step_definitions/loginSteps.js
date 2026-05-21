@@ -69,6 +69,45 @@ When('user login with empty passowrd', function () {
 
 });
 
+When('user login with empty both fields', function () {
+
+    flow.login(this.users.emptyBothFields);
+
+});
+
+When('user login with invalid email format', function () {
+
+    flow.login(this.users.invalidFormat);
+
+});
+
+When('user login with email without at', function () {
+
+    flow.login(this.users.withoutAt);
+
+});
+
+When('user login with leading trailing spaces', function () {
+
+    flow.login(this.users.leadingTrailing);
+    
+
+});
+
+When('user login with only spaces input', function () {
+
+    flow.login(this.users.spacesOnly);
+    
+
+});
+
+When('user login with password with special characters', function () {
+
+    flow.login(this.users.passwordSpecialChars);
+    
+
+});
+
 When('user press Enter after entering valid credentials', function () {
 
     flow.login(this.users.validUser, true);
@@ -91,6 +130,18 @@ When('user logout after successful login', () => {
 // ========================
 // 🔹 THEN
 // ========================
+
+Then('company logo should be visible', () => {
+
+    pageAction.verifyCompanyHeader();
+
+});
+
+Then('email textbox should be visible', () => {
+
+    pageAction.verifyEmailTextbox();
+
+});
 
 Then('user should see shopping cart page', () => {
 
