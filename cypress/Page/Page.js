@@ -22,6 +22,27 @@ class PageAction {
 
     }
 
+    static verifyPasswordTextbox() {
+
+        loginScript.verifyPasswordTextbox();
+
+    }
+
+    static inputPassword(password) {
+
+        loginScript.inputField(
+            loginScript.selectors.passwordField,
+            password
+        );
+
+    }
+
+    static verifyPasswordMasked() {
+
+        loginScript.verifyPasswordMasked();
+
+    }
+
     static login(credentials, useEnter = false) {
 
         loginScript.inputField(

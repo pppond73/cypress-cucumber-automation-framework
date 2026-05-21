@@ -92,13 +92,23 @@ Given user is on login page
 When user login with password with special characters
 Then error message should be displayed
 
-
 @login @ui
 Scenario: Verify company logo
 Given user is on login page
 Then company logo should be visible
 
 @login @ui
-Scenario: Verify company logo
+Scenario: Verify email textbox
 Given user is on login page
 Then email textbox should be visible
+
+@login @ui
+Scenario: Verify password textbox
+Given user is on login page
+Then password textbox should be visible
+
+@login @ui
+Scenario: Verify password masking
+Given user is on login page
+When user enters password
+Then password input should be masked

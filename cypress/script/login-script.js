@@ -97,3 +97,17 @@ export const verifyEmailTextbox = () => {
     .should('be.visible');
 
 };
+
+export const verifyPasswordTextbox = () => {
+
+  cy.get(selectors.passwordField)
+    .should('be.visible');
+
+};
+
+export const verifyPasswordMasked = () => {
+
+  cy.get(selectors.passwordField)
+    .should('have.attr', 'type', 'password');
+
+};

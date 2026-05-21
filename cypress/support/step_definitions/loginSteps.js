@@ -126,6 +126,12 @@ When('user logout after successful login', () => {
 
 });
 
+When('user enters password', () => {
+
+    pageAction.inputPassword('admin123');
+
+});
+
 
 // ========================
 // 🔹 THEN
@@ -140,6 +146,18 @@ Then('company logo should be visible', () => {
 Then('email textbox should be visible', () => {
 
     pageAction.verifyEmailTextbox();
+
+});
+
+Then('password textbox should be visible', () => {
+
+    pageAction.verifyPasswordTextbox();
+
+});
+
+Then('password input should be masked', () => {
+
+    pageAction.verifyPasswordMasked();
 
 });
 
