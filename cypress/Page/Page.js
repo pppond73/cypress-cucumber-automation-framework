@@ -49,6 +49,24 @@ class PageAction {
 
     }
 
+    static verifyPlaceholderText() {
+
+        loginScript.verifyPlaceholderText();
+
+    }
+
+    static keyboardNavigation() {
+
+        loginScript.keyboardNavigation();
+
+    }
+
+    static verifyKeyboardNavigation() {
+
+        loginScript.verifyKeyboardNavigation();
+
+    }
+
     static login(credentials, useEnter = false) {
 
         loginScript.inputField(

@@ -132,6 +132,11 @@ When('user enters password', () => {
 
 });
 
+When('user navigates using keyboard tab', () => {
+
+    pageAction.keyboardNavigation();
+
+});
 
 // ========================
 // 🔹 THEN
@@ -164,6 +169,18 @@ Then('password input should be masked', () => {
 Then('login button should be visible and clickable', () => {
 
     pageAction.verifyLoginButton();
+
+});
+
+Then('placeholder text should be displayed', () => {
+
+    pageAction.verifyPlaceholderText();
+
+});
+
+Then('focus should move correctly between elements', () => {
+
+    pageAction.verifyKeyboardNavigation();
 
 });
 

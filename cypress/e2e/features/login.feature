@@ -117,3 +117,14 @@ Then password input should be masked
 Scenario: Verify login button
 Given user is on login page
 Then login button should be visible and clickable
+
+@login @ui
+Scenario: Verify placeholder text
+Given user is on login page
+Then placeholder text should be displayed
+
+@login @ui
+Scenario: Verify keyboard navigation
+Given user is on login page
+When user navigates using keyboard tab
+Then focus should move correctly between elements

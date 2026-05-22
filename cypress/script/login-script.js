@@ -119,3 +119,36 @@ export const verifyLoginButton = () => {
     .and('not.be.disabled');
 
 };
+
+export const verifyPlaceholderText = () => {
+
+  cy.get(selectors.emailField)
+    .should('have.attr', 'placeholder', 'Enter email - insert admin@admin.com');
+
+  cy.get(selectors.passwordField)
+    .should('have.attr', 'placeholder', 'Enter Password - insert admin123');
+
+};
+
+export const keyboardNavigation = () => {
+
+  cy.get(selectors.emailField)
+    .focus()
+    .tab();
+
+};
+
+export const verifyKeyboardNavigation = () => {
+
+  cy.get(selectors.emailField)
+    .focus()
+    .tab();
+
+  cy.get(selectors.passwordField)
+    .should('have.focus')
+    .tab();
+
+  cy.get(selectors.submitBtn)
+    .should('have.focus');
+
+};
