@@ -50,5 +50,17 @@
   "passwordSpecialChars": {
     "email": "admin@admin.com",
     "password": "Admin@123!"
+  },
+  "unicode": {
+    "email": "ทดสอบ😀@mail.com",
+    "password": "Päss😀123"
+  },
+  "sqlInjection": {
+    "email": "' OR 1=1 --",
+    "password": "' OR 1=1 --"
+  },
+  "xssPayload": {
+    "email": "<script>alert('xss')</script>",
+    "password": "test123"
   }
 }

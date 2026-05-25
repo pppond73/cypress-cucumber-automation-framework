@@ -152,3 +152,20 @@ export const verifyKeyboardNavigation = () => {
     .should('have.focus');
 
 };
+
+export const pasteCredentials = (
+  credentials
+) => {
+
+  cy.get(selectors.emailField)
+    .invoke('val', credentials.email)
+    .trigger('input');
+
+  cy.get(selectors.passwordField)
+    .invoke('val', credentials.password)
+    .trigger('input');
+
+  cy.get(selectors.submitBtn)
+    .click();
+
+};

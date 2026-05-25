@@ -92,6 +92,13 @@ Given user is on login page
 When user login with password with special characters
 Then error message should be displayed
 
+@unicode
+Scenario: Verify unicode input
+Given user is on login page
+When user login with unicode credentials
+Then error message should be displayed
+
+
 @login @ui
 Scenario: Verify company logo
 Given user is on login page
@@ -124,7 +131,25 @@ Given user is on login page
 Then placeholder text should be displayed
 
 @login @ui
-Scenario: Verify keyboard navigation
+Scenario: Keyboard navigation
 Given user is on login page
 When user navigates using keyboard tab
 Then focus should move correctly between elements
+
+@login @ui
+Scenario: Copy and paste credentials
+Given user is on login page
+When user pastes valid credentials into login fields
+Then user should see shopping cart page
+
+@login @security
+Scenario: SQL injection attempt
+Given user is on login page
+When user login with SQL injection payload
+Then authentication should fail
+
+@login @security
+Scenario: XSS attempt
+Given user is on login page
+When user login with XSS payload
+Then script should not execute

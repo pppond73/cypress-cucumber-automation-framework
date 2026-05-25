@@ -108,6 +108,13 @@ When('user login with password with special characters', function () {
 
 });
 
+When('user login with unicode credentials', function () {
+
+    flow.login(this.users.unicode);
+
+
+});
+
 When('user press Enter after entering valid credentials', function () {
 
     flow.login(this.users.validUser, true);
@@ -135,6 +142,28 @@ When('user enters password', () => {
 When('user navigates using keyboard tab', () => {
 
     pageAction.keyboardNavigation();
+
+});
+
+When('user pastes valid credentials into login fields', function () {
+
+    pageAction.pasteCredentials(
+        this.users.validUser
+    );
+
+});
+
+When('user login with SQL injection payload', function () {
+
+    flow.login(this.users.sqlInjection);
+
+});
+
+When('user login with XSS payload', function () {
+
+    cy.on('window:alert', cy.stub().as('alert'));
+
+    flow.login(this.users.xssPayload);
 
 });
 
@@ -201,5 +230,20 @@ Then('user should redirect to login page', () => {
 Then('error message should be displayed', () => {
 
     pageAction.verifyError(messageError.LOGIN_ERROR);
+
+});
+
+Then('authentication should fail', () => {
+
+    pageAction.verifyError(
+        messageError.LOGIN_ERROR
+    );
+
+});
+
+Then('script should not execute', () => {
+
+    cy.get('@alert')
+        .should('not.have.been.called');
 
 });

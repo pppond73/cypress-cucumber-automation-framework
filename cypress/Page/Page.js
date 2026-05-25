@@ -67,6 +67,12 @@ class PageAction {
 
     }
 
+    static pasteCredentials(credentials) {
+
+        loginScript.pasteCredentials(credentials);
+
+    }
+
     static login(credentials, useEnter = false) {
 
         loginScript.inputField(
