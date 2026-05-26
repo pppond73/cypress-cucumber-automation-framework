@@ -8,9 +8,18 @@ import * as shippingScript from "../script/shipping-details-script";
 // 🔹 LOGIN
 // ========================
 
-export const login = (credentials, useEnter = false) => {
+export const login = (
+    credentials,
+    useEnter = false
+) => {
 
-    pageAction.login(credentials, useEnter);
+    pageAction.login(
+        credentials,
+        useEnter
+    );
+
+    // 🔹 mock auth session
+    pageAction.mockSession();
 
 };
 

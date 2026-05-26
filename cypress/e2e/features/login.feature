@@ -153,3 +153,29 @@ Scenario: XSS attempt
 Given user is on login page
 When user login with XSS payload
 Then script should not execute
+
+#@login @security
+#Scenario: Direct URL access
+#When user directly accesses shopping cart page
+#Then user should redirect to login page
+
+@login @security
+Scenario: Session cleanup
+Given user is on login page
+When user login with valid credentials
+And user logout after successful login
+Then session should be cleared
+
+#@login @security
+#Scenario: Multiple invalid login attempts
+#Given user is on login page
+#When user attempts invalid login multiple times
+#Then authentication should fail consistently
+
+@login @security
+Scenario: Access protected page after session removal
+Given user is on login page
+When user login with valid credentials
+And user removes session manually
+And accesses shopping cart page
+Then user should redirect to login page

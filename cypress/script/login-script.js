@@ -169,3 +169,17 @@ export const pasteCredentials = (
     .click();
 
 };
+
+// 🔹 Mock Session
+export const mockSession = () => {
+
+  cy.window().then((win) => {
+
+    win.localStorage.setItem(
+      'token',
+      'mock-session-token'
+    );
+
+  });
+
+};

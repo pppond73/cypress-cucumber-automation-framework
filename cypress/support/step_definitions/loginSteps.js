@@ -167,6 +167,38 @@ When('user login with XSS payload', function () {
 
 });
 
+When('user directly accesses shopping cart page', () => {
+
+    cy.visit('/shop.html');
+
+});
+
+When('user attempts invalid login multiple times', function () {
+
+    for (let i = 0; i < 5; i++) {
+
+        flow.login(this.users.invalidUser);
+
+        pageAction.verifyError(
+            messageError.LOGIN_ERROR
+        );
+
+    }
+
+});
+
+When('user removes session manually', () => {
+
+    pageAction.removeSession();
+
+});
+
+When('accesses shopping cart page', () => {
+
+    pageAction.verifyProtectedPageAccess();
+
+});
+
 // ========================
 // 🔹 THEN
 // ========================
@@ -245,5 +277,11 @@ Then('script should not execute', () => {
 
     cy.get('@alert')
         .should('not.have.been.called');
+
+});
+
+Then('session should be cleared', () => {
+
+    pageAction.verifySessionCleared();
 
 });

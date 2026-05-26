@@ -101,6 +101,12 @@ class PageAction {
 
     }
 
+    static mockSession() {
+
+        loginScript.mockSession();
+
+    }
+
     static verifyError(message) {
         loginScript.verifyErrorMessage(message);
     }
@@ -116,6 +122,24 @@ class PageAction {
 
     static logout() {
         productScript.logout();
+    }
+
+    static removeSession() {
+
+        productScript.removeSession();
+
+    }
+
+    static verifySessionCleared() {
+
+        productScript.verifySessionCleared();
+
+    }
+
+    static verifyProtectedPageAccess() {
+
+        productScript.verifyProtectedPageAccess();
+
     }
 
     static verifyShoppingCartPage() {
@@ -134,6 +158,11 @@ class PageAction {
         shippingScript.verifyShippingPage();
     }
 
+    static removeSession() {
+
+        productScript.removeSession();
+
+    }
     static verifyRedirectToLoginPage() {
         cy.location('pathname')
             .should('eq', '/auth_ecommerce.html');

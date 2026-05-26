@@ -26,6 +26,14 @@ const getCartItem = (name) => {
 // 🔹 ACTION: LOGOUT
 export const logout = () => {
 
+    cy.window().then((win) => {
+
+        win.localStorage.removeItem('token');
+
+    });
+
+    cy.clearCookies();
+
     cy.get(selectors.logoutBtn)
         .should('be.visible')
         .click();
@@ -135,4 +143,46 @@ export const checkoutProcess = (data) => {
     pickupItems(data);
     addQuantity(data);
     calCartTotal(data);
+};
+
+// 🔹 Remove Session
+export const removeSession = () => {
+
+    cy.window().then((win) => {
+
+        win.localStorage.removeItem('token');
+
+    });
+
+};
+
+// 🔹 Verify Session Cleared
+export const verifySessionCleared = () => {
+
+    cy.window().then((win) => {
+
+        expect(
+            win.localStorage.getItem('token')
+        ).to.be.null;
+
+    });
+
+};
+
+// 🔹 Mock Protected Route Access
+export const verifyProtectedPageAccess = () => {
+
+    cy.window().then((win) => {
+
+        const token =
+            win.localStorage.getItem('token');
+
+        if (!token) {
+
+            cy.visit('/auth_ecommerce.html');
+
+        }
+
+    });
+
 };
