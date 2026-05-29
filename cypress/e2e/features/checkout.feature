@@ -1,23 +1,62 @@
-Feature: E-commerce Checkout
+Feature: Checkout
 
-Scenario: Checkout product
-Given user is on login page
-And login with valid credentials
-When user selects product and checkout
-Then user should navigate to shipping page
+    Background:
+        Given user already logged in
 
 
-Scenario: Shipping with invalid address
-Given user is on login page
-And user login with valid credentials
-When user selects product and checkout
-And submits invalid shipping address
-Then system should show required field validation
+    Scenario: Checkout with one item
+
+        Given user has one item in cart
+        When user clicks checkout
+        Then user should navigate to shipping page
 
 
-Scenario: Shipping with valid address
-Given user is on login page
-And user login with valid credentials
-When user selects product and checkout
-And submits valid shipping address
-Then order should be successful
+    Scenario: Checkout with multiple items
+
+        Given user has multiple items in cart
+        When user clicks checkout
+        Then user should navigate to shipping page
+
+
+    Scenario: Checkout with no item
+
+        When user clicks checkout
+        Then system should show required validation
+
+
+    Scenario: Shipping with invalid address
+
+        Given user has one item in cart
+        And user clicks checkout
+        When user submits invalid shipping address
+        Then system should show required validation
+
+
+    Scenario: Shipping with valid address
+
+        Given user has one item in cart
+        And user clicks checkout
+        When user submits valid shipping address
+        Then order should be successful
+
+
+    @remove
+    Scenario: Remove item from cart
+
+    When user pickup one item
+    And user removes product "Dior J'adore"
+    Then product "Dior J'adore" should be removed
+
+
+    Scenario: Remove multiple items from cart
+
+        Given user has multiple items in cart
+        When user removes multiple products
+        Then cart should be empty
+
+
+    Scenario: Update product quantity
+
+        Given user has multiple items in cart
+        When user updates product quantity
+        Then cart total should update correctly

@@ -1,6 +1,45 @@
-[
-  { "name": "Dior J'adore", "quantity": 2, "enabled": true },
-  { "name": "Dolce Shine Eau de", "quantity": 10, "enabled": false },
-  { "name": "Gucci Bloom Eau de", "quantity": 3, "enabled": true },
-  { "name": "Calvin Klein CK One", "quantity": 5, "enabled": false  }
-]
+{
+  "singleProduct": [
+    {
+      "name": "Dior J'adore",
+      "quantity": 1,
+      "enabled": true
+    }
+  ],
+  "multipleProducts": [
+    {
+      "name": "Dior J'adore",
+      "quantity": 2,
+      "enabled": true
+    },
+    {
+      "name": "Gucci Bloom Eau de",
+      "quantity": 3,
+      "enabled": true
+    }
+  ],
+  "mixedProducts": [
+    {
+      "name": "Dior J'adore",
+      "quantity": 2,
+      "enabled": true
+    },
+    {
+      "name": "Dolce Shine Eau de",
+      "quantity": 10,
+      "enabled": false
+    },
+    {
+      "name": "Gucci Bloom Eau de",
+      "quantity": 3,
+      "enabled": true
+    }
+  ],
+  "paginationPage2": [
+    {
+      "name": "Chicken Meat",
+      "quantity": 2,
+      "enabled": true
+    }
+  ]
+}

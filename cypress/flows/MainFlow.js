@@ -1,12 +1,6 @@
 // cypress/flows/MainFlow.js
 
 import pageAction from "../Page/page";
-import * as messageError from "../script/message-script";
-import * as shippingScript from "../script/shipping-details-script";
-
-// ========================
-// 🔹 LOGIN
-// ========================
 
 export const login = (
     credentials,
@@ -18,15 +12,9 @@ export const login = (
         useEnter
     );
 
-    // 🔹 mock auth session
     pageAction.mockSession();
 
 };
-
-
-// ========================
-// 🔹 LOGOUT
-// ========================
 
 export const logoutFlow = () => {
 
@@ -34,46 +22,75 @@ export const logoutFlow = () => {
 
 };
 
+export const pickupProductFlow = (
+    products
+) => {
 
-// ========================
-// 🔹 CHECKOUT
-// ========================
+    pageAction.pickupItems(products);
 
-export const checkoutFlow = (products) => {
-    cy.log('Checkout flow');
+    pageAction.updateQuantity(products);
 
-    pageAction.checkoutProduct(products);
-    pageAction.submitCheckout();
+    pageAction.verifyCartTotal(products);
+
 };
 
-// ========================
-// 🔹 SHIPPING INVALID
-// ========================
+export const checkoutFlow = (
+    products
+) => {
 
-export const shippingInvalidFlow = (products, invalidAddress) => {
-    cy.log('Shipping - Invalid');
+    pickupProductFlow(products);
+    pageAction.clickCheckout();
 
-    pageAction.shippingDetails(invalidAddress);
+};
+
+export const shippingInvalidFlow = (
+    invalidAddress
+) => {
+
+    pageAction.shippingDetails(
+        invalidAddress
+    );
+
     pageAction.submitShipping();
+
 };
 
-// ========================
-// 🔹 SHIPPING VALID
-// ========================
+export const shippingValidFlow = (
+    validAddress
+) => {
 
-export const shippingValidFlow = (products, validAddress) => {
-    cy.log('Shipping - Valid');
+    pageAction.shippingDetails(
+        validAddress
+    );
 
-    pageAction.shippingDetails(validAddress);
     pageAction.submitShipping();
+
 };
 
-// ========================
-// 🔹 VERIFY SUCCESS
-// ========================
+export const removeItemsFlow = (
+    products
+) => {
 
-export const verifyOrderSuccess = (validAddress) => {
-    cy.log('Verify Order Success');
+    pageAction.removeItems(products);
 
-    pageAction.verifyShippingSuccess(validAddress);
+};
+
+export const updateQuantityFlow = (
+    products
+) => {
+
+    pageAction.updateQuantity(
+        products
+    );
+
+};
+
+export const verifyCartTotalFlow = (
+    products
+) => {
+
+    pageAction.verifyCartTotal(
+        products
+    );
+
 };

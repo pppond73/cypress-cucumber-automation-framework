@@ -1,66 +1,197 @@
 // cypress/support/step_definitions/checkoutSteps.js
 
 import {
+    Given,
     When,
-    Then,
-    defineStep as And
+    Then
 } from "@badeball/cypress-cucumber-preprocessor";
 
 import * as flow from "../../flows/MainFlow";
+
 import pageAction from "../../Page/Page";
 
 
 // ========================
-// 🔹 WHEN
+// GIVEN
 // ========================
 
-When('user selects product and checkout', function () {
+Given(
+    'user already logged in',
+    function () {
 
-    flow.checkoutFlow(this.products);
+        cy.visit('/auth_ecommerce.html');
 
-});
+        flow.login(
+            this.users.validUser
+        );
 
-And('submits invalid shipping address', function () {
+    }
+);
 
-    flow.shippingInvalidFlow(
-        this.products,
-        this.address.invalidAddress
-    );
+Given(
+    'user has one item in cart',
+    function () {
 
-});
+        flow.pickupProductFlow(
+            this.products.singleProduct
+        );
 
-And('submits valid shipping address', function () {
+    }
+);
 
-    flow.shippingValidFlow(
-        this.products,
-        this.address.validAddress
-    );
+Given(
+    'user has multiple items in cart',
+    function () {
 
-});
+        flow.pickupProductFlow(
+            this.products.multipleProducts
+        );
+
+    }
+);
 
 
 // ========================
-// 🔹 THEN
+// WHEN
 // ========================
 
-Then('user should navigate to shipping page', () => {
+When(
+    'user clicks checkout',
+    () => {
 
-    pageAction.verifyShippingPage();
+        pageAction.clickCheckout();
 
-});
+    }
+);
+
+When(
+    'user submits invalid shipping address',
+    function () {
+
+        flow.shippingInvalidFlow(
+            this.address.invalidAddress
+        );
+
+    }
+);
+
+When(
+    'user submits valid shipping address',
+    function () {
+
+        flow.shippingValidFlow(
+            this.address.validAddress
+        );
+
+    }
+);
+
+When(
+    'user removes product {string}',
+    (productName) => {
+
+        flow.removeItemsFlow(
+            productName
+        );
+
+    }
+);
+
+When(
+    'user removes multiple products',
+    function () {
+
+        flow.removeItemsFlow(
+            this.products.multipleProducts
+        );
+
+    }
+);
+
+When(
+    'user updates product quantity',
+    function () {
+
+        flow.updateQuantityFlow(
+            this.products.multipleProducts
+        );
+
+    }
+);
+
+When(
+    'user pickup one item',
+    function () {
+
+        flow.pickupProductFlow(
+            this.products.singleProduct
+        );
+
+    }
+);
 
 
-Then('system should show required field validation', () => {
 
-    pageAction.verifyShippingFail();
+// ========================
+// THEN
+// ========================
 
-    cy.log('Validation tooltip verified');
+Then(
+    'user should navigate to shipping page',
+    () => {
 
-});
+        pageAction.verifyShippingPage();
 
+    }
+);
 
-Then('order should be successful', () => {
+Then(
+    'system should show required validation',
+    () => {
 
-    pageAction.verifyShippingSuccess(validAddress);
+        pageAction.verifyShippingFail();
 
-});
+    }
+);
+
+Then(
+    'order should be successful',
+    function () {
+
+        pageAction.verifyShippingSuccess(
+            this.address.validAddress
+        );
+
+    }
+);
+
+Then(
+    'product {string} should be removed',
+    (productName) => {
+
+        pageAction.verifyCartItemRemoved(
+            productName
+        );
+
+    }
+);
+
+Then(
+    'cart should be empty',
+    () => {
+
+        pageAction.verifyEmptyCart();
+
+    }
+);
+
+Then(
+    'cart total should update correctly',
+    function () {
+
+        flow.verifyCartTotalFlow(
+            this.products.multipleProducts
+        );
+
+    }
+);

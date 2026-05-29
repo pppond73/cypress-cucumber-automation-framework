@@ -6,74 +6,10 @@ import * as shippingScript from "../script/shipping-details-script";
 
 class PageAction {
 
-    // ========================
-    // 🔹 LOGIN
-    // ========================
-
-    static verifyCompanyHeader() {
-
-        loginScript.verifyCompanyHeader();
-
-    }
-
-    static verifyEmailTextbox() {
-
-        loginScript.verifyEmailTextbox();
-
-    }
-
-    static verifyPasswordTextbox() {
-
-        loginScript.verifyPasswordTextbox();
-
-    }
-
-    static inputPassword(password) {
-
-        loginScript.inputField(
-            loginScript.selectors.passwordField,
-            password
-        );
-
-    }
-
-    static verifyPasswordMasked() {
-
-        loginScript.verifyPasswordMasked();
-
-    }
-
-    static verifyLoginButton() {
-
-        loginScript.verifyLoginButton();
-
-    }
-
-    static verifyPlaceholderText() {
-
-        loginScript.verifyPlaceholderText();
-
-    }
-
-    static keyboardNavigation() {
-
-        loginScript.keyboardNavigation();
-
-    }
-
-    static verifyKeyboardNavigation() {
-
-        loginScript.verifyKeyboardNavigation();
-
-    }
-
-    static pasteCredentials(credentials) {
-
-        loginScript.pasteCredentials(credentials);
-
-    }
-
-    static login(credentials, useEnter = false) {
+    static login(
+        credentials,
+        useEnter = false
+    ) {
 
         loginScript.inputField(
             loginScript.selectors.emailField,
@@ -108,89 +44,119 @@ class PageAction {
     }
 
     static verifyError(message) {
+
         loginScript.verifyErrorMessage(message);
+
     }
 
     static verifyNoError() {
+
         loginScript.verifyNoErrorMessage();
+
     }
-
-
-    // ========================
-    // 🔹 PRODUCT
-    // ========================
 
     static logout() {
+
         productScript.logout();
-    }
-
-    static removeSession() {
-
-        productScript.removeSession();
-
-    }
-
-    static verifySessionCleared() {
-
-        productScript.verifySessionCleared();
-
-    }
-
-    static verifyProtectedPageAccess() {
-
-        productScript.verifyProtectedPageAccess();
 
     }
 
     static verifyShoppingCartPage() {
+
         productScript.verifyShoppingCartPage();
+
     }
 
-    static checkoutProduct(productData) {
-        productScript.checkoutProcess(productData);
+    static pickupItems(products) {
+
+        productScript.pickupItems(products);
+
     }
 
-    static submitCheckout() {
-        productScript.checkoutBtn(true);
+    static updateQuantity(products) {
+
+        productScript.updateQuantity(products);
+
+    }
+
+    static verifyCartTotal(products) {
+
+        productScript.calCartTotal(products);
+
+    }
+
+    static clickCheckout() {
+
+        productScript.clickCheckout();
+
+    }
+
+    static removeItems(products) {
+
+        productScript.removeItems(products);
+
+    }
+
+    static verifyCartItemExists(productName) {
+
+        productScript.verifyCartItemExists(
+            productName
+        );
+
+    }
+
+    static verifyCartItemRemoved(productName) {
+
+        productScript.verifyCartItemRemoved(
+            productName
+        );
+
+    }
+
+    static verifyEmptyCart() {
+
+        productScript.verifyEmptyCart();
+
     }
 
     static verifyShippingPage() {
+
         shippingScript.verifyShippingPage();
-    }
-
-    static removeSession() {
-
-        productScript.removeSession();
 
     }
-    static verifyRedirectToLoginPage() {
-        cy.location('pathname')
-            .should('eq', '/auth_ecommerce.html');
-
-        cy.get('#submitLoginBtn')
-            .should('be.visible');
-    }
-
-
-    // ========================
-    // 🔹 SHIPPING
-    // ========================
 
     static shippingDetails(addressData) {
-        shippingScript.fillShippingDetails(addressData);
+
+        shippingScript.fillShippingDetails(
+            addressData
+        );
+
     }
 
     static submitShipping() {
+
         shippingScript.submitShipping();
+
     }
 
     static verifyShippingFail() {
-        shippingScript.verifyRequiredField('input[name="city"]');
+
+        shippingScript.verifyRequiredField(
+            'input[name="city"]'
+        );
+
     }
 
-    static verifyShippingSuccess(addressData) {
-        shippingScript.verifyShippingSuccess(addressData);
+    static verifyShippingSuccess(
+        addressData
+    ) {
+
+        shippingScript.verifyShippingSuccess(
+            addressData
+        );
+
     }
+
 }
 
 export default PageAction;

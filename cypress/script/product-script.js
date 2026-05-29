@@ -1,29 +1,34 @@
-// 🔹 SELECTORS
-const selectors = {
+export const selectors = {
     logoutBtn: '#logout',
+    header: '.section-header',
     shopItem: '.shop-item',
     addBtn: '.shop-item-button',
+    removeButton: '.btn-danger',
+    paginationBtn: '.pagination-btn',
     cartRow: '.cart-row',
+    cartItem: '.cart-items',
     cartTitle: '.cart-item-title',
     cartPrice: '.cart-price',
     cartQty: '.cart-quantity-input',
     totalPrice: '.cart-total-price',
     checkoutBtn: 'button.btn-purchase',
-    header: '.section-header'
-
 };
 
-// 🔹 HELPERS
 const getActiveItems = (data) => {
-    return data.filter(item => item.enabled !== false);
+    return data.filter(
+        item => item.enabled !== false
+    );
 };
 
-const getCartItem = (name) => {
-    return cy.contains(selectors.cartTitle, name)
-        .closest(selectors.cartRow);
+const getCartItem = (productName) => {
+
+    return cy.contains(
+        selectors.cartTitle,
+        productName
+    ).closest(selectors.cartRow);
+
 };
 
-// 🔹 ACTION: LOGOUT
 export const logout = () => {
 
     cy.window().then((win) => {
@@ -40,54 +45,215 @@ export const logout = () => {
 
 };
 
-// 🔹 VERIFY PAGE
 export const verifyShoppingCartPage = () => {
-    cy.contains(selectors.header, 'SHOPPING CART')
-        .should('be.visible');
+
+    cy.contains(
+        selectors.header,
+        'SHOPPING CART'
+    ).should('be.visible');
+
 };
 
-// 🔹 ACTION: CLICK CHECKOUT
-export const checkoutBtn = (shouldClick = false) => {
-    cy.contains(selectors.checkoutBtn, 'PROCEED TO CHECKOUT')
-        .should('be.visible');
+export const clickCheckout = () => {
 
-    if (shouldClick) {
-        cy.contains(selectors.checkoutBtn, 'PROCEED TO CHECKOUT').click();
-        cy.log('Checkout clicked');
-    }
+    cy.contains(
+        selectors.checkoutBtn,
+        'PROCEED TO CHECKOUT'
+    )
+        .should('be.visible')
+        .click();
+
 };
 
-// 🔹 ACTION: PICK ITEMS
-export const pickupItems = (data) => {
-    const items = getActiveItems(data);
+export const clickPreviousPage = () => {
 
-    items.forEach((item) => {
-        cy.contains(selectors.shopItem, item.name)
-            .should('be.visible')
-            .find(selectors.addBtn)
-            .click();
+    cy.contains(
+        selectors.paginationBtn,
+        'Prev'
+    )
+        .should('be.visible')
+        .click();
+
+};
+
+export const clickNextPage = () => {
+
+    cy.contains(
+        selectors.paginationBtn,
+        'Next'
+    )
+        .should('be.visible')
+        .click();
+
+};
+
+export const clickPageNumber = (pageNumber) => {
+
+    cy.contains(
+        selectors.paginationBtn,
+        pageNumber
+    )
+        .should('be.visible')
+        .click();
+
+};
+
+export const verifyActivePage = (pageNumber) => {
+
+    cy.contains(
+        selectors.paginationBtn,
+        pageNumber
+    )
+        .should('have.class', 'active');
+
+};
+
+export const verifyPreviousDisabled = () => {
+
+    cy.contains(
+        selectors.paginationBtn,
+        'Prev'
+    )
+        .should('be.disabled');
+
+};
+
+export const verifyNextDisabled = () => {
+
+    cy.contains(
+        selectors.paginationBtn,
+        'Next'
+    )
+        .should('be.disabled');
+
+};
+
+export const pickupItem = (
+    productName
+) => {
+
+    cy.get('body').then(($body) => {
+
+        const found =
+            $body.find(selectors.shopItem)
+                .text()
+                .includes(productName);
+
+        if (found) {
+
+            cy.contains(
+                selectors.shopItem,
+                productName
+            )
+                .find(selectors.addBtn)
+                .click();
+
+        } else {
+
+            cy.contains(
+                selectors.paginationBtn,
+                'Next'
+            )
+                .should('not.be.disabled')
+                .click();
+
+            pickupItem(productName);
+
+        }
+
     });
+
 };
 
-// 🔹 ACTION: ADD QUANTITY
-export const addQuantity = (data) => {
-    const items = getActiveItems(data);
+export const pickupItems = (
+    products
+) => {
+
+    const items = getActiveItems(products);
 
     items.forEach((item) => {
+
+        pickupItem(item.name);
+
+    });
+
+};
+
+export const updateQuantity = (
+    products
+) => {
+
+    const items = getActiveItems(products);
+
+    items.forEach((item) => {
+
         if (!item.quantity) return;
 
         getCartItem(item.name)
             .find(selectors.cartQty)
             .clear()
             .type(`${item.quantity}{enter}`);
+
     });
+
 };
 
-// 🔹 ASSERT: CALCULATE TOTAL
-export const calCartTotal = (data) => {
-    const items = getActiveItems(data);
+export const removeItems = (
+    products
+) => {
+
+    const items = Array.isArray(products)
+        ? products
+        : [products];
+
+    items.forEach((item) => {
+
+        const productName =
+            item.name || item;
+
+        getCartItem(productName)
+            .find(selectors.removeButton)
+            .click();
+
+    });
+
+};
+
+export const verifyCartItemExists = (
+    productName
+) => {
+
+    getCartItem(productName)
+        .should('exist');
+
+};
+
+export const verifyCartItemRemoved = (
+    productName
+) => {
+
+    cy.contains(
+        selectors.cartTitle,
+        productName
+    )
+        .should('not.exist');
+
+};
+
+export const verifyEmptyCart = () => {
+    cy.get(selectors.cartItem)
+        .find(selectors.cartRow)
+        .should('have.length', 0);
+};
+
+export const calCartTotal = (
+    products
+) => {
+
+    const items = getActiveItems(products);
 
     let total = 0;
+
     let formula = [];
 
     items.forEach((item) => {
@@ -97,92 +263,60 @@ export const calCartTotal = (data) => {
             .then(($row) => {
 
                 const price = parseFloat(
-                    $row.find(selectors.cartPrice).text().replace('$', '').trim()
+                    $row.find(selectors.cartPrice)
+                        .text()
+                        .replace('$', '')
+                        .trim()
                 ) || 0;
 
                 const qty = parseInt(
-                    $row.find(selectors.cartQty).val()
+                    $row.find(selectors.cartQty)
+                        .val()
                 ) || 0;
 
                 const subTotal = price * qty;
 
-                cy.log(`${item.name}`);
-                cy.log(`${price} x ${qty} = ${subTotal}`);
-
-                formula.push(`(${price} x ${qty})`);
                 total += subTotal;
+
+                formula.push(
+                    `(${price} x ${qty})`
+                );
+
+                cy.log(
+                    `${price} x ${qty} = ${subTotal}`
+                );
+
             });
+
     });
 
     cy.then(() => {
 
-        const expected = total.toFixed(2);
+        const expected =
+            total.toFixed(2);
 
-        cy.log(`Formula: ${formula.join(' + ')}`);
-        cy.log(`Expected: ${expected}`);
+        cy.log(
+            `Formula: ${formula.join(' + ')}`
+        );
 
         cy.get(selectors.totalPrice)
             .invoke('text')
             .then((text) => {
 
-                const actual = text.replace('$', '').trim();
+                const actual = text
+                    .replace('$', '')
+                    .trim();
 
-                cy.log(`Actual: ${actual}`);
+                expect(
+                    parseFloat(actual)
+                ).to.be.closeTo(
+                    parseFloat(expected),
+                    0.01
+                );
 
-                expect(parseFloat(actual))
-                    .to.be.closeTo(parseFloat(expected), 0.01);
             });
 
-        // 🔥 scroll ให้คุณตาม requirement
-        cy.scrollTo('top');
-    });
-};
-
-// 🔹 MAIN FLOW (ยังใช้ได้ แต่ไม่บังคับ)
-export const checkoutProcess = (data) => {
-    pickupItems(data);
-    addQuantity(data);
-    calCartTotal(data);
-};
-
-// 🔹 Remove Session
-export const removeSession = () => {
-
-    cy.window().then((win) => {
-
-        win.localStorage.removeItem('token');
-
     });
 
 };
 
-// 🔹 Verify Session Cleared
-export const verifySessionCleared = () => {
-
-    cy.window().then((win) => {
-
-        expect(
-            win.localStorage.getItem('token')
-        ).to.be.null;
-
-    });
-
-};
-
-// 🔹 Mock Protected Route Access
-export const verifyProtectedPageAccess = () => {
-
-    cy.window().then((win) => {
-
-        const token =
-            win.localStorage.getItem('token');
-
-        if (!token) {
-
-            cy.visit('/auth_ecommerce.html');
-
-        }
-
-    });
-
-};
